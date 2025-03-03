@@ -41,6 +41,34 @@ $playerLookup['Elgin'] = "Elgin"
 $playerLookup['BEN78'] = "BEN78"
 $playerLookup['Opus'] = "Opus"
 $playerLookup['Manabandis'] = "Manabandis"
+$playerLookup['canayanochin'] = "canayanochin"
+$playerLookup['Bernoden'] = "Bernoden"
+$playerLookup['Otto The Orange'] = "Otto The Orange"
+$playerLookup['Elektramagnetic'] = "Elektramagnetic"
+$playerLookup['Steelsinger'] = "Steelsinger"
+$playerLookup['Tojabar'] = "Tojabar"
+$playerLookup['x 4L13N x'] = "x 4L13N x"
+$playerLookup['Kawasaki'] = "Kawasaki"
+$playerLookup['Gremidren'] = "Gremidren"
+$playerLookup['OssianMoMoney'] = "OssianMoMoney"
+$playerLookup['ORCA'] = "ORCA"
+$playerLookup['Genghis Khan'] = "Genghis Khan"
+$playerLookup['StefanoDoc'] = "StefanoDoc"
+$playerLookup['Fiegleyl'] = "Fiegleyl"
+$playerLookup['Ananaya'] = "Ananaya"
+$playerLookup['Nono'] = "Nono"
+$playerLookup['Elgin'] = "Elgin"
+$playerLookup['MadKarlgen'] = "MadKarlgen"
+$playerLookup['puraviq'] = "puraviq"
+$playerLookup['Foin'] = "Foin"
+$playerLookup['Hefaistos DK'] = "Hefaistos DK"
+$playerLookup['Marsha'] = "Marsha"
+$playerLookup['Deldrien'] = "Deldrien"
+$playerLookup['Firlefanz'] = "Firlefanz"
+$playerLookup['Hulk'] = "Hulk"
+$playerLookup['RATC'] = "RATC"
+$playerLookup['Dagdarim'] = "Dagdarim"
+$playerLookup['Finginad'] = "Finginad"
 
 $fromVal = ""
 $sourceVal = ""
@@ -51,40 +79,72 @@ foreach($item in $array){
    if($item -match "(From: .*$)"){
       $val = $matches[0]
       $val = [regex]::Replace($val,"From: ","",1)
-      $fromVal = [regex]::Replace($val,"Time.*$","",1)
+ #     $fromVal = [regex]::Replace($val,"Time.*$","",1)
+      $fromVal = $val.Trim()
 
       $asciiBytes = [Text.Encoding]::ASCII.GetBytes($fromVal)
-      $asciiString = -join ($asciiBytes | foreach { [char]$_ })
+      $fromCompare = -join ($asciiBytes | foreach { [char]$_ })
       foreach ($key in $playerLookup.Keys){
-         $fromCompare = $asciiString.ToLower()
-         $playerCompare = $key.ToLower()
          Write-Output "Looking for player:$playerCompare in fromval:$fromCompare"
-         if($fromCompare -contains $playerCompare){
+         if($fromCompare -match "(?i)$key"){
             $fromVal = $key
             Write-Output "found a player:$fromVal"
          }
       }
-      if($fromVal -eq ""){
-         $fromVal = "MrClean"
+      if($fromVal -Match "(?i)x 4L43N"){
+         $fromVal = "x 4L13N x"
+      }
+      if($fromVal -Match "(?i)x 4L3N"){
+         $fromVal = "x 4L13N x"
+      }
+      if($fromVal -Match "(?i)X ALI3N"){
+         $fromVal = "x 4L13N x"
+      }
+      if($fromVal -Match "(?i)Ob.lix"){
+         $fromVal = "Oblix"
       }
       Write-Output "from match:$fromVal"
    }
    if($item -match "(Source: .*$)"){
       $val = $matches[0]
-      if($val -Contains "Level 35-39 Vault of the Ancients"){
+      if($val -match "(?i)Level 35-39 Vault of the Ancients"){
          $val = "Level 35-39 Vault of the Ancients"
       }
-      if($val -Contains "Level 45 Vault of the Ancients"){
+      if($val -match "(?i)Level 45 Vault of the Ancients"){
          $val = "Level 45 Vault of the Ancients"
       }
-      if($val -Contains "Level 40-44 Vault of the Ancients"){
+      if($val -match "(?i)Level 40-44 Vault of the Ancients"){
          $val = "Level 40-44 Vault of the Ancients"
       }
-      if($val -Contains "Union of Triumph personal reward"){
+      if($val -match "(?i)Union of Triumph personal reward"){
          $val = "Union of Triumph personal reward"
       }
-      if($val -Contains "Mimic Chest"){
+      if($val -match "(?i)Mimic Chest"){
          $val = "Mimic Chest"
+      }
+      if($val -match "(?i)Level 19 heroic Monster"){
+         $val = "Level 19 heroic Monster"
+      }
+      if($val -match "(?i)Level 20 heroic Monster"){
+         $val = "Level 20 heroic Monster"
+      }
+      if($val -match "(?i)Level 24 heroic Monster"){
+         $val = "Level 24 heroic Monster"
+      }
+      if($val -match "(?i)Level 25 heroic Monster"){
+         $val = "Level 25 heroic Monster"
+      }
+      if($val -match "(?i)Level 27 heroic Monster"){
+         $val = "Level 27 heroic Monster"
+      }
+      if($val -match "(?i)Level 28 heroic Monster"){
+         $val = "Level 28 heroic Monster"
+      }
+      if($val -match "(?i)Level 29 heroic Monster"){
+         $val = "Level 29 heroic Monster"
+      }
+      if($val -match "(?i)Level 33 heroic Monster"){
+         $val = "Level 33 heroic Monster"
       }
 
       $val = [regex]::Replace($val,"Source: ","",1)
@@ -99,5 +159,5 @@ foreach($item in $array){
    }
    
 }
-
+#sleep(100000)
 exit 0
